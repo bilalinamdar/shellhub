@@ -1,5 +1,5 @@
 import Vuex from 'vuex';
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import SettingProfile from '@/components/setting/SettingProfile';
 
 describe('SettingProfile', () => {
@@ -31,7 +31,7 @@ describe('SettingProfile', () => {
   });
 
   beforeEach(() => {
-    wrapper = shallowMount(SettingProfile, {
+    wrapper = mount(SettingProfile, {
       store,
       localVue,
       stubs: ['fragment'],
@@ -56,5 +56,12 @@ describe('SettingProfile', () => {
     expect(wrapper.vm.editDataStatus).toEqual(false);
     expect(wrapper.vm.editPasswordStatus).toEqual(false);
     expect(wrapper.vm.show).toEqual(false);
+  });
+  it('Renders the template with data', () => {
+    expect(wrapper.find('[data-test="username-text"]').element.value).toEqual(user);
+    expect(wrapper.find('[data-test="email-text"]').element.value).toEqual(email);
+    expect(wrapper.find('[data-test="password-text"]').element.value).toEqual('');
+    expect(wrapper.find('[data-test="newPassword-text"]').element.value).toEqual('');
+    expect(wrapper.find('[data-test="confirmNewPassword-text"]').element.value).toEqual('');
   });
 });
